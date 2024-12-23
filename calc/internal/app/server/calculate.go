@@ -62,6 +62,7 @@ func Calculate(w http.ResponseWriter, r *http.Request) {
 	ans, err := calculation.Calculate(calcRequest.Exp)
 	if err != nil {
 		writeError(w, http.StatusUnprocessableEntity, "Expression is not valid")
+		return
 	}
 
 	calculateResponse := CalcResponse{
@@ -71,7 +72,6 @@ func Calculate(w http.ResponseWriter, r *http.Request) {
 	data, err := json.Marshal(calculateResponse)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "Internal server error")
-		return
 	} else {
 		_, err = w.Write(data)
 		if err != nil {

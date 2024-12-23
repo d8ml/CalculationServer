@@ -2,6 +2,7 @@ package calculation
 
 import (
 	errors "github.com/d8ml/calculation_server/calc/internal/pkg"
+	"math"
 	"strconv"
 )
 
@@ -176,13 +177,16 @@ func Calculate(input string) (float64, error) {
 				case 2*1e9 + 3:
 					process[processP] = a * b
 				case 2*1e9 + 4:
+					if math.Abs(a) < 1e-9 {
+						return 0, errors.InvalidExpression
+					}
 					process[processP] = b / a
 				}
 			}
 		}
 	}
 
-	if processP > 0 {
+	if processP != 0 {
 		return 0, errors.InvalidExpression
 	} else {
 		return process[0], nil
