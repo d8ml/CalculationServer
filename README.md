@@ -20,3 +20,8 @@ curl --location 'http://localhost:8083/api/v1/calculate' \
     "expression": "22 / 2"
 }'
 ```
+
+Запуск тестов с покрытием
+```
+go test -cover ./calc/internal/pkg/calculation/
+```
